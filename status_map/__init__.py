@@ -22,9 +22,12 @@ class StatusMap(Mapping):
         nodes = deepcopy(graph.nodes)
         for node in nodes:
             edges = transitions[node]
-            edges = ((node, edge) for edge in edges)
-            graph.add_edges_from(edges)
-
+            if isinstance(edges, dict):
+                edges_to_add = ((node, edge, attribute) for edge, attribute in edges.items())
+                self._add_transition_validations(node, edges)
+            else:
+                edges_to_add = ((node, edge) for edge in edges)
+            graph.add_edges_from(edges_to_add)
         self._graph = graph
 
     def __repr__(self):
@@ -55,6 +58,31 @@ class StatusMap(Mapping):
     @lru_cache(maxsize=512)
     def get_descendants(graph, status):
         return descendants(graph, status)
+
+    def _add_transition_validations(self, from_state, transitions):
+        """
+        This method get the validation methods from the transitions dict 'validation' key
+        """
+        for to_state, attributes in transitions.items():
+            validation_methods = attributes.get("validation", [])
+            for validation_method in validation_methods:
+                self._add_validation(from_state, to_state, validation_method)
+
+    def _add_validation(self, from_state, to_state, validation_method):
+        """
+        Add validation method for a transition from one state to another.
+        """
+        if not hasattr(self, "_validations"):
+            self._validations = {}
+        if from_state not in self._validations:
+            self._validations[from_state] = {}
+        self._validations[from_state][to_state] = validation_method
+
+    def get_validations(self, from_state, to_state):
+        """
+        Get validation methods for a transition.
+        """
+        return self._validations.get(from_state, {}).get(to_state, [])
 
     def validate_transition(self, from_status, to_status):
         if not self._graph.has_node(from_status):
