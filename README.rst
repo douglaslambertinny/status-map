@@ -5,6 +5,11 @@ status-map
 
 Handle status maps and status transitions easily.
 
+I fork this project to add the possibility to add conditions to the transitions. Is a basic implementation, but works for me.
+
+This is a Fork of: https://github.com/lamenezes/status-map
+Thanks to the original author for the great work!
+-----------------
 
 How to use
 ==========
@@ -16,7 +21,7 @@ status-map is available on PyPI:
 
 .. code-block:: bash
 
-    $ pip install status-map
+    $ pip install status-map-validator
 
 
 Basic Usage
@@ -34,6 +39,22 @@ E.g. we can define a task workflow as follows:
         'todo': ['doing'],
         'doing': ['todo', 'done'],
         'done': [],  # assuming a task once finished can't go back to other status
+    })
+
+.. code-block:: python
+
+    from status_map import StatusMap
+
+    def condition_draft_to_pending():
+        pass
+    
+    def condition_pending_to_approved():
+        pass
+    
+    status_map = StatusMap({
+        'draft': {"pending": {"validation": [condition_draft_to_pending]}},
+        'pending': {"approved": {"validation": [condition_pending_to_approved], "canceled": {}}},
+        'approved': ["done", "canceled"],
     })
 
 
@@ -65,6 +86,18 @@ The validation raises a different exception if the to_status has already appeare
     Traceback (most recent call last):
     ...
     status_map.exceptions.PastTransitionError: transition from done to todo should have happened in the past
+
+It is also possible to obtain conditions that were set in a transition:
+
+.. code-block:: python
+
+    >> status_map.get_conditions('draft', 'pending')
+    func = <function __main__.condition_draft_to_pending()>
+    func()
+
+    >> status_map.get_conditions('pending', 'approved')
+    method = <function __main__.condition_pending_to_approved()>
+    func()
 
 
 Setting up for local development
