@@ -7,8 +7,7 @@ Handle status maps and status transitions easily.
 
 I fork this project to add the possibility to add conditions to the transitions. Is a basic implementation, but works for me.
 
-This is a Fork of: https://github.com/lamenezes/status-map
-Thanks to the original author for the great work!
+This is a Fork of: original-project_. Thanks to the original author for the great work!
 -----------------
 
 How to use
@@ -129,6 +128,8 @@ That's it! You're ready from development.
 
 .. _poetry: https://github.com/sdispater/poetry
 
+.. _original-project: https://github.com/lamenezes/status-map
+
 .. |version-badge| image:: https://badge.fury.io/py/status-map.svg
     :target: https://pypi.org/project/status-map/
 
@@ -143,3 +144,4 @@ That's it! You're ready from development.
 
 .. |cov-badge| image:: https://codecov.io/gh/lamenezes/status-map/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/lamenezes/status-map
+
