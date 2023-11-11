@@ -1,6 +1,19 @@
 import pytest
 
-from status_map import StatusMap
+from status_map_validator import StatusMap
+
+@pytest.fixture
+def transitions_with_conditions():
+    def condition_draft_to_pending():
+        print("condition_draft_to_pending")
+    def condition_pending_to_approved():
+        print("condition_pending_to_approved")
+
+    return {
+        "draft": {"pending": {"validation": [condition_draft_to_pending]}},
+        "pending": {"approved": {"validation": [condition_pending_to_approved]}},
+        "approved": {"processed": {}},
+    }
 
 
 @pytest.fixture
@@ -96,6 +109,10 @@ def complex_transitions_map(complex_transitions):
 @pytest.fixture
 def transitions_map(transitions):
     return StatusMap(transitions)
+
+@pytest.fixture
+def transitions_with_conditions_map(transitions_with_conditions):
+    return StatusMap(transitions_with_conditions)
 
 
 @pytest.fixture

@@ -10,14 +10,15 @@ sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 default_section = "THIRDPARTY"
 
 [tool.poetry]
-name = "status-map"
+name = "status-map-validator"
 version = "0.5.1"
-description = "Status map (and its transitions) data structure"
+description = "Status map (and its transitions) data structure and validations"
 license = "MIT"
-authors = ["Luiz Menezes <luiz.menezesf@gmail.com>", "Rafael Cassau <rafa.cassau@gmail.com>"]
+authors = ["Douglas Lambertinny <douglas.b.dev@gmail.com>", "Luiz Menezes <luiz.menezesf@gmail.com>", "Rafael Cassau <rafa.cassau@gmail.com>"]
+# readme = "README.rst"
 
-repository = "https://github.com/lamenezes/status-map"
-homepage = "https://github.com/lamenezes/status-map"
+repository = "https://github.com/douglaslambertinny/status-map-validator"
+homepage = "https://github.com/douglaslambertinny/status-map-validator"
 
 keywords = ['status', 'map', 'transition', 'validation']
 

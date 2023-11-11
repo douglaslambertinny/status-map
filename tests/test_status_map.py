@@ -1,4 +1,5 @@
 import pytest
+import types
 
 from status_map import StatusMap, __version__
 from status_map.exceptions import (
@@ -345,3 +346,9 @@ def test_validate_transitions_future_transition(from_status, to_status, complex_
 def test_complex_transitions_ambiguous_transition(complex_transitions_map):
     with pytest.raises(AmbiguousTransitionError):
         complex_transitions_map.validate_transition("returning_to_sender", "awaiting_pickup_by_receiver")
+
+def test_validate_transitions_with_conditions(transitions_with_conditions_map):
+    condition = transitions_with_conditions_map.get_validations("draft", "pending")
+    assert isinstance(condition, types.FunctionType)
+    assert condition == transitions_with_conditions_map._validations["draft"]["pending"]
+    
