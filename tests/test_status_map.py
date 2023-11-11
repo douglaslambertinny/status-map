@@ -1,8 +1,8 @@
 import pytest
 import types
 
-from status_map import StatusMap, __version__
-from status_map.exceptions import (
+from status_map_validator import StatusMap, __version__
+from status_map_validator.exceptions import (
     AmbiguousTransitionError,
     FutureTransitionError,
     PastTransitionError,

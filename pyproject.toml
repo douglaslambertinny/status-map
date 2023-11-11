@@ -11,7 +11,7 @@ default_section = "THIRDPARTY"
 
 [tool.poetry]
 name = "status-map-validator"
-version = "0.5.1"
+version = "0.5.2"
 description = "Status map (and its transitions) data structure and validations"
 license = "MIT"
 authors = ["Douglas Lambertinny <douglas.b.dev@gmail.com>", "Luiz Menezes <luiz.menezesf@gmail.com>", "Rafael Cassau <rafa.cassau@gmail.com>"]
